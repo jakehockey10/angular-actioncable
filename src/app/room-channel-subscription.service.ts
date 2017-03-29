@@ -9,6 +9,8 @@ export class RoomChannelSubscriptionService {
   private cable: ActionCable.Cable;
   private subscription: ActionCable.Channel;
 
+  messages: string[] = [];
+
   constructor() { }
 
   initialize() {
@@ -32,7 +34,8 @@ export class RoomChannelSubscriptionService {
 
   private received(data: any) {
     console.log('received');
-    this.onMessageReceived.emit(data.message);
+    this.messages.push(data.message);
+    this.onMessageReceived.emit(this.messages.join('\n'));
   }
 
 }

@@ -30,17 +30,17 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
     this.roomChannelSubscriptionService.initialize();
     this.roomChannelSubscriptionService.onMessageReceived.subscribe(
-      message => this.showMessage(message),
+      messages => this.showMessage(messages),
       (error) => console.log(error)
     );
   }
 
-  private showMessage(messageString) {
+  private showMessage(messagesString) {
     if (!this.messageRef) {
       const messageComponent = this.componentFactoryResolver.resolveComponentFactory(MessageComponent);
       this.messageRef = this.message.createComponent(messageComponent);
     }
-    this.messageRef.instance.message = messageString;
+    this.messageRef.instance.messages = messagesString;
     this.messageRef.changeDetectorRef.detectChanges();
   }
 }
